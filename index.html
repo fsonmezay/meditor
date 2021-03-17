@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Meditor!</title>
+  <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport' />
+
+  <link href="./assets/css/bootstrap.min.css" rel="stylesheet" type='text/css' media='all' />
+  <style>
+    #editControls {
+      border-radius: 5px;
+    }
+
+    #editparent {
+      border: #dedede 1px solid;
+      border-radius: 5px;
+    }
+
+    #editor {
+      resize: vertical;
+      overflow: auto;
+      min-height: 160px;
+      background: white;
+      margin: 0 auto;
+      width: 100%;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col">
+        <div id="editparent">
+          <div id="editControls" class="bg-light border-bottom">
+            <div class="btn-toolbar" role="toolbar" aria-label="Styling Controls">
+              <div class="btn-group mr-2" role="group" aria-label="First group">
+                <a class="btn bnt-sm btn-light" data-role='bold' href='#'><b>B</b></a>
+                <a class="btn bnt-sm btn-light" data-role='italic' href='#'><i>i</i></a>
+                <a class="btn bnt-sm btn-light" data-role='underline' href='#'><u>U</u></a>
+                <a class='btn bnt-sm btn-light' data-role='strikeThrough' href='#'><strike>S</strike></a>
+              </div>
+              <div class='btn-group'>
+                <a class="btn bnt-sm btn-light" data-role='insertUnorderedList' href='#'>ul</a>
+                <a class="btn bnt-sm btn-light" data-role='insertOrderedList' href='#'>ol</a>
+              </div>
+            </div>
+          </div>
+          <div id='editor' contenteditable="true" tabindex="1"></div>
+          
+        </div>
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-primary btn-sm" type="button" id="submitBtn">Display Content</button>
+          <small class="text-muted">
+            Editor Credits:
+            <a href="https://codepen.io/trhino/pen/xyLAu" target="_blank"
+              title="CodePen: https://codepen.io/trhino/pen/xyLAu">1</a>,
+            <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content/Rich-Text_Editing_in_Mozilla#executing_commands"
+              title="Mozilla: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content/Rich-Text_Editing_in_Mozilla#executing_commands"
+              target="_blank">2</a>
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col mt-5">
+        <textarea class="form-control" name="richContent" id="richContent" rows="6"></textarea>
+      </div>
+    </div>
+
+  </div>
+
+  <script src='./assets/js/jquery-3.6.0.slim.min.js'></script>
+  <script src='./assets/js/bootstrap.bundle.min.js'></script>
+
+  <script>
+
+    $(function () {
+      $('#editControls a').click(function (e) {
+        switch ($(this).data('role')) {
+          case 'h1':
+          case 'h2':
+          case 'p':
+            document.execCommand('formatBlock', false, $(this).data('role'));
+            break;
+          default:
+            document.execCommand($(this).data('role'), false, null);
+            break;
+        }
+      });
+    });
+
+    // $("#submitBtn").on('click', function () {
+    //   $("#richContent").val($("#editor").html());
+    // });
+
+    document.getElementById("editor").addEventListener("input", function() {
+      $("#richContent").val($("#editor").html());
+    }, false);
+
+  </script>
+</body>
+
+</html>
