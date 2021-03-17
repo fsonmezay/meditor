@@ -93,9 +93,11 @@
       });
     });
 
-    // $("#submitBtn").on('click', function () {
-    //   $("#richContent").val($("#editor").html());
-    // });
+    $("#submitBtn").on('click', function () {
+      var htmlContent = $("#editor").html();
+      $("#richContent").val(htmlContent);
+      alert(htmlContent);
+    });
 
     document.getElementById("editor").addEventListener("input", function() {
       $("#richContent").val($("#editor").html());
